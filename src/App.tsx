@@ -6,43 +6,24 @@ import { Footer } from "./components/Footer"
 import { Note } from "./components/Note"
 import notes from "./notes"
 import { NoteItem }from "./interfaces"
-// import Footer from './components/Footer'
-
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
-
+import { AddNote } from "./components/AddNote"
 
 
 function App() {
+
+  // const [showNewNote, setShowNewNote] = useState(true); 
+ 
+  const [noteValue, setNoteValue] = useState(
+    {
+      title: "",
+      content:""
+    });
+
+    const UpdateNotes = () =>{ 
+      {notes.push({key: notes.count+1, title: noteValue.title, content: noteValue.content})}
+      console.log(notes);
+      setNoteValue({title:"", content: ""});
+    }
   return (<div>
     <Header />
     {notes.map((noteItem: NoteItem) => (
@@ -52,7 +33,15 @@ function App() {
         content={noteItem.content}
       />
     ))}
-    <Footer />
+
+    { <Note
+        key={notes.count+1}
+        title= {noteValue.title}
+        content = {noteValue.content}
+        setNoteValue = {setNoteValue}
+    />}   
+    <button onClick = {UpdateNotes}>Add Note</button>
+    <Footer/>
   </div>)
 }
 

@@ -1,14 +1,49 @@
-import { useState } from "react"
-import {NoteItem} from "../interfaces"
+import { ChangeEvent, useState } from "react"
+import { NoteItem } from "../interfaces"
 
-export const Note =(props :NoteItem)=>{
+export const Note = (props: NoteItem) => {
 
     const [isMouseOver, setMouseOver] = useState(false);
-    const HandleMouseOver =()=>{
+    
+    const HandleMouseOver = () => {
         setMouseOver(true);
     }
-    const HandleMouseLeave =()=>{
+    const HandleMouseLeave = () => {
         setMouseOver(false);
     }
-    return(<div onMouseOver={HandleMouseOver} onMouseLeave={HandleMouseLeave} className={isMouseOver? "noteHighlight" : "note"}><h1>{props.title}</h1><p>{props.content}</p></div>)
+    const HandleChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+        const { name, value } = event.target;
+
+        props.setNoteValue?.(prevValue => {
+            console.log("Previousvalue: " + prevValue);
+            if (name == "title") {
+                return {
+                    title: value,
+                    content: prevValue.content
+                }
+            }
+            else if(name =="content")
+            {
+                return {
+                    content: value,
+                    title: prevValue.title
+                }
+            }
+            else{
+                return{
+                    content: prevValue.content,
+                    title: prevValue.title
+                }
+            }
+        })
+    }
+
+    return (<div
+        onMouseOver={HandleMouseOver}
+        onMouseLeave={HandleMouseLeave}
+        className={isMouseOver ? "noteHighlight" : "note"}>
+        <input onChange={HandleChange} name="title" value={props.title}></input>
+        <input onChange={HandleChange} name="content" value={props.content}></input>
+    </div>)
 }
