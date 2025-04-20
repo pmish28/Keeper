@@ -1,19 +1,18 @@
 import {useState} from "react";
 import "../styles/styles.scss"
+import HighlightIcon from '@mui/icons-material/Highlight';
 
 export const Header =()=>{
 
-    // const [time,setTime] = useState(new Date().toLocaleTimeString());
-    // setInterval(()=>setTime(new Date().toLocaleTimeString()));
-
-
-    const [time,setTime] = useState(new Date().toLocaleString());
-    setInterval(()=>setTime(new Date().toLocaleString()));
+    // const [time,setTime] = useState(new Date().toLocaleString());
+    // setInterval(()=>setTime(new Date().toLocaleString()));
 
     return(
-        <div>
-            <h1 className="header">Keeper  {time}</h1>
-            {/* <h2 className="header h2"> </h2> */}
+        <div className="header">
+            
+            <h1 ><HighlightIcon/>Keeper  </h1>   
+            {/* <p className="headerTime">{time}</p>         */}
         </div>
+        
     )
 }

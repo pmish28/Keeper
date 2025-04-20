@@ -2,13 +2,14 @@ import React, { SetStateAction } from "react";
 
 
 export interface NoteItem{
-    key: number;
+    id: number;
     title: string;
     content: string;
-    setNoteValue?: React.Dispatch<React.SetStateAction<NoteValue>>;
+    // setNoteValue?: React.Dispatch<React.SetStateAction<NoteValue>>;
+    onDelete?: (id: number)=>void;
   }
 
-  export interface NoteValue{
-    title: string;
-    content: string;
-  }
+  // export interface NoteValue{
+  //   title: string;
+  //   content: string;
+  // }

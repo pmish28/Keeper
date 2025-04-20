@@ -4,44 +4,48 @@ import "./styles/styles.scss"
 import { Header } from "./components/Header"
 import { Footer } from "./components/Footer"
 import { Note } from "./components/Note"
-import notes from "./notes"
-import { NoteItem }from "./interfaces"
-import { AddNote } from "./components/AddNote"
+import { NoteItem } from "./interfaces"
+import { CreateArea } from './components/CreateArea'
 
 
 function App() {
 
-  // const [showNewNote, setShowNewNote] = useState(true); 
- 
-  const [noteValue, setNoteValue] = useState(
-    {
-      title: "",
-      content:""
-    });
+  const [notes, setNotes] = useState<NoteItem[]>([]);
 
-    const UpdateNotes = () =>{ 
-      {notes.push({key: notes.count+1, title: noteValue.title, content: noteValue.content})}
-      console.log(notes);
-      setNoteValue({title:"", content: ""});
-    }
+  const addNote = (newNote: {title:string, content: string}) => {
+    setNotes(prevNotes => [
+       ...prevNotes,
+       {
+        id: Date.now(),
+        title: newNote.title,
+        content: newNote.content,
+       }
+    ]);
+    console.log("Inside App.tsx addNote" + notes.length);
+  }
+
+  const deleteNote = (id: number) => {
+    setNotes(prevNote => {
+      return prevNote.filter((note) => {
+        return note.id !== id
+      });
+    });
+  }
+
   return (<div>
     <Header />
-    {notes.map((noteItem: NoteItem) => (
+    <CreateArea onAdd={addNote}></CreateArea>
+    {notes.map((note) => {
+      return (
       <Note
-        key={noteItem.key}
-        title={noteItem.title}
-        content={noteItem.content}
-      />
-    ))}
-
-    { <Note
-        key={notes.count+1}
-        title= {noteValue.title}
-        content = {noteValue.content}
-        setNoteValue = {setNoteValue}
-    />}   
-    <button onClick = {UpdateNotes}>Add Note</button>
-    <Footer/>
+        key={note.id}
+        id={note.id}
+        title={note.title}
+        content={note.content}
+        onDelete={deleteNote}
+      />)
+      })}
+    <Footer />
   </div>)
 }
 
