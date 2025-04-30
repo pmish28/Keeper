@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer"
 import { Note } from "./components/Note"
 import { NoteItem } from "./interfaces"
 import { CreateArea } from './components/CreateArea'
+import { Recorder } from './components/Recorder'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         onDelete={deleteNote}
       />)
       })}
+    <Recorder/>
     <Footer />
   </div>)
 }
