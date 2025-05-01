@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Mic, StopCircle, Play } from "lucide-react";
+import { Mic, Play, StopCircle } from "lucide-react";
 
 export const Recorder = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -14,6 +14,7 @@ export const Recorder = () => {
     recorder.ondataavailable = (e) => audioChunksRef.current.push(e.data);
 
     recorder.onstop = () => {
+      console.log("Recorder.onstop called")
       const blob = new Blob(audioChunksRef.current, { type: "audio/webm" }); // combines chunks into a single audio  file
       const url = URL.createObjectURL(blob);
       setAudioUrl(url);
@@ -21,37 +22,35 @@ export const Recorder = () => {
     };
 
     recorder.start();
+    console.log("Recorder.start called")
     mediaRecorderRef.current = recorder;
     setIsRecording(true);
   };
 
   const stopRecording = () => {
+    console.log("stopRecording called")
+
     mediaRecorderRef?.current?.stop();
     setIsRecording(false);
   };
 
   return (
-    <div>
-      <div className="w-full max-w-md mx-auto p-4 bg-white shadow-lg rounded-2xl text-center space-y-4">
-        <h2 className="text-xl font-semibold">🎤 Audio Note Recorder</h2>
-        <motion.div
-          className="mx-auto w-16 h-16 rounded-full bg-red-500"
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ repeat: Infinity, duration: 0.8 }}
-        />
+    <div className="recorder">
+      <div >
+        <h2 className="text-xl">🎤 Audio Note Recorder</h2>        
       </div>
-      <div>
+      <div className="mic-stop">
         {!isRecording ? (
           <button
             onClick={() => startRecording()}
-            className="bg-red-500 text-white p-3 rounded-full hover:bg-red-600"
+            className="start-recording"
           >
             <Mic />
           </button>
         ) : (
           <button
             onClick={() => stopRecording()}
-            className="bg-gray-500 text-white p-3 rounded-full hover:bg-gray-600"
+            className="start-recording"
           >
             <StopCircle />
           </button>
@@ -67,7 +66,7 @@ export const Recorder = () => {
       {audioUrl && (
         <div>
           <p>Recorded Audio:</p>
-          <audio controls src={audioUrl}></audio>
+          <audio controls src={audioUrl}><Play /></audio>
         </div>
       )}
     </div>

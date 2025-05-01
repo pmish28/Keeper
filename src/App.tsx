@@ -13,14 +13,14 @@ function App() {
 
   const [notes, setNotes] = useState<NoteItem[]>([]);
 
-  const addNote = (newNote: {title:string, content: string}) => {
+  const addNote = (newNote: { title: string, content: string }) => {
     setNotes(prevNotes => [
-       ...prevNotes,
-       {
+      ...prevNotes,
+      {
         id: Date.now(),
         title: newNote.title,
         content: newNote.content,
-       }
+      }
     ]);
     console.log("Inside App.tsx addNote" + notes.length);
   }
@@ -35,18 +35,22 @@ function App() {
 
   return (<div>
     <Header />
-    <CreateArea onAdd={addNote}></CreateArea>
-    {notes.map((note) => {
-      return (
-      <Note
-        key={note.id}
-        id={note.id}
-        title={note.title}
-        content={note.content}
-        onDelete={deleteNote}
-      />)
-      })}
-    <Recorder/>
+    <div className="container">
+      <div className='noteArea'>      
+        <CreateArea onAdd={addNote}></CreateArea>
+        {notes.map((note) => {
+          return (
+            <Note
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              content={note.content}
+              onDelete={deleteNote}
+            />)
+        })}
+      </div>
+      <Recorder />
+    </div>
     <Footer />
   </div>)
 }

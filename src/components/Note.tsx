@@ -54,5 +54,4 @@ export const Note = (props: NoteItem) => {
           <button className="delete" onClick={handleClick}><DeleteIcon/></button>
         </div>
       );
-
     } 
