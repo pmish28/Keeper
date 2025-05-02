@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Mic, Play, StopCircle } from "lucide-react";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 export const Recorder = () => {
   const [isRecording, setIsRecording] = useState(false);

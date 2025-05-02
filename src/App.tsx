@@ -7,6 +7,7 @@ import { Note } from "./components/Note"
 import { NoteItem } from "./interfaces"
 import { CreateArea } from './components/CreateArea'
 import { Recorder } from './components/Recorder'
+import Dictaphone from './components/TestDicatation'
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
   return (<div>
     <Header />
     <div className="container">
-      <div className='noteArea'>      
+      {/* <div className='noteArea'>      
         <CreateArea onAdd={addNote}></CreateArea>
         {notes.map((note) => {
           return (
@@ -48,8 +49,9 @@ function App() {
               onDelete={deleteNote}
             />)
         })}
-      </div>
-      <Recorder />
+      </div> */}
+      {/* <Recorder /> */}
+      <Dictaphone/>
     </div>
     <Footer />
   </div>)

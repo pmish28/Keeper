@@ -236,9 +236,12 @@ h2.text-xl {
 
   // Button Styling for Recording Controls
 $button-color-start: #ef4444;  // red
-$button-color-stop: #6b7280;   // gray
+$button-color-stop: #6b7280;// gray
+$button-color-refresh:lightgreen;
 $button-hover-start: #dc2626;  // hover red
 $button-hover-stop: #4b5563;   // hover gray
+$button-hover-refresh: green;  // hover 
+
 $button-size: 50px;
 
 .mic-stop{
@@ -280,6 +283,16 @@ button {
     &:hover {
       background-color: $button-hover-stop;
       transform: translateY(-4px);
+    }
+  }
+
+  &.refresh-transcript{
+    background-color: $button-color-refresh;
+    color:white;
+    font-size: 20px;
+    &:hover{
+      background-color: $button-hover-refresh;
+      transform: translate(-1px);
     }
   }
 
