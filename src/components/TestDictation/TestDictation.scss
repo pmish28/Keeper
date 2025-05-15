@@ -1,0 +1,119 @@
+@use "../../styles/variables";
+
+
+.dictation{
+    display: flex;
+    flex-wrap: wrap;
+    gap:16px;
+}
+
+.transcript {
+    flex: 1 1 100%;
+    background: white;
+    border-radius: 7px;
+    box-shadow: variables.$box-shadow-dark;
+    font-size: 14px;
+    color: #6b7280;
+    padding: 1rem;
+    width: 500px;
+    height: 250px;
+    overflow-y: auto;    
+  }
+
+  
+
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: variables.$button-size;
+    height: variables.$button-size;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+    // Default button styles (Red button for recording)
+    &.start-recording {
+    //   flex: 1 1 30%;
+      background-color: variables.$button-color-start;
+      color: white;
+      font-size: 20px;
+  
+      &:hover {
+        background-color: variables.$button-hover-start;
+        transform: translateY(-4px);
+      }
+    }
+  
+    // Stop button styles (Gray button for stopping)
+    &.stop-recording {
+    //   flex: 1 1 30%;
+      background-color: variables.$button-color-stop;
+      color: white;
+      font-size: 20px;
+  
+      &:hover {
+        background-color: variables.$button-hover-stop;
+        transform: translateY(-4px);
+      }
+    }
+  
+    &.refresh-transcript{
+      background-color: variables.$button-color-refresh;
+      color:white;
+      font-size: 20px;
+      &:hover{
+        background-color: variables.$button-hover-refresh;
+        transform: translate(-1px);
+      }
+    }
+  
+    // Add some animation for the icon inside the button
+    svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
+  
+      // Add a rotate effect on hover
+      &:hover {
+        transform: rotate(5deg);
+      }
+    }
+  
+    // Optional: Active state for when recording is happening
+    &.active {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transform: scale(1.1);
+    }
+  }
+  
+  // Audio controls styling
+  audio {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #f9fafb;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
+  .copied{
+    position: 'absolute';
+    // top: '-20px';
+    // left: '50%';
+    transform: 'translateX(-50%)';
+    color: '#fff';
+    // padding: '4px 8px';
+    // border-radius: '4px';
+    font-size: '8px'
+  }
+  

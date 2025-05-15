@@ -7,7 +7,7 @@ import { Note } from "./components/Note"
 import { NoteItem } from "./interfaces"
 import { CreateArea } from './components/CreateArea'
 import { Recorder } from './components/Recorder'
-import Dictaphone from './components/TestDicatation'
+import Dictaphone from './components/TestDictation/TestDicatation'
 
 
 function App() {
@@ -49,8 +49,8 @@ function App() {
               onDelete={deleteNote}
             />)
         })}
-      </div> */}
-      {/* <Recorder /> */}
+      </div>
+      <Recorder /> */}
       <Dictaphone/>
     </div>
     <Footer />

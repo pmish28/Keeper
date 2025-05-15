@@ -1,12 +1,4 @@
-// Variables for easier customization
-$primary-color: #f5ba13;
-$secondary-color: #fff;
-$highlight-color: #deff09;
-$text-color: #1f2937;
-$box-shadow-light: 0 2px 5px #ccc;
-$box-shadow-dark: 0 0 10px rgba(0, 0, 0, 0.3);
-$font-main: "Montserrat", sans-serif;
-$font-cursive: "McLaren", cursive;
+@use "variables";
 
 * {
   padding: 0;
@@ -15,7 +7,7 @@ $font-cursive: "McLaren", cursive;
 }
 
 html {
-  font-family: $font-main;
+  font-family: variables.$font-main;
 }
 
 body {
@@ -26,27 +18,27 @@ body {
 
 .header {
   display: flex;
-  background-color: $primary-color;
-  color: $secondary-color;
-  box-shadow: $box-shadow-dark;
+  background-color: variables.$primary-color;
+  color: variables.$secondary-color;
+  box-shadow: variables.$box-shadow-dark;
 
   h1 {
-    color: $secondary-color;
-    font-family: $font-cursive;
+    color: variables.$secondary-color;
+    font-family: variables.$font-cursive;
     font-weight: 200;
     width: 85%;
   }
 
   h2 {
-    color: $secondary-color;
-    font-family: $font-cursive;
+    color: variables.$secondary-color;
+    font-family: variables.$font-cursive;
     font-weight: 150;
   }
 
   .headerTime {
-    color: $secondary-color;
+    color: variables.$secondary-color;
     float: right;
-    font-family: $font-cursive;
+    font-family: variables.$font-cursive;
     font-size: medium;
     width: 15%;
   }
@@ -122,9 +114,9 @@ body {
 // }
 
 .note {
-  background: $secondary-color;
+  background: variables.$secondary-color;
   border-radius: 7px;
-  box-shadow: $box-shadow-light;
+  box-shadow: variables.$box-shadow-light;
   padding: 10px;
   width: 240px;
   margin: 16px;
@@ -133,9 +125,9 @@ body {
 }
 
 .noteHighlight {
-  background: $highlight-color;
+  background: variables.$highlight-color;
   border-radius: 7px;
-  box-shadow: $box-shadow-light;
+  box-shadow: variables.$box-shadow-light;
   padding: 10px;
   width: 240px;
   margin: 16px;
@@ -180,7 +172,7 @@ form .button,
 .button {
   position: relative;
   cursor: pointer;
-  background: $primary-color;
+  background: variables.$primary-color;
   border-radius: 50%;
   width: 35px;
   height: 30px;
@@ -188,20 +180,20 @@ form .button,
   left: 340px;
   bottom: 25px;
   outline: none;
-  color: $secondary-color;
+  color: variables.$secondary-color;
 }
 
 .delete {
   position: absolute;
   cursor: pointer;
-  background: $secondary-color;
+  background: variables.$secondary-color;
   border-radius: 50%;
   border: none;
   width: 25px;
   height: 25px;
   right: 10px;
   bottom: 5px;
-  color: $primary-color;
+  color: variables.$primary-color;
 }
 
 
@@ -234,15 +226,7 @@ h2.text-xl {
   }
 }
 
-  // Button Styling for Recording Controls
-$button-color-start: #ef4444;  // red
-$button-color-stop: #6b7280;// gray
-$button-color-refresh:lightgreen;
-$button-hover-start: #dc2626;  // hover red
-$button-hover-stop: #4b5563;   // hover gray
-$button-hover-refresh: green;  // hover 
 
-$button-size: 50px;
 
 .mic-stop{
   display: flex;
@@ -250,83 +234,3 @@ $button-size: 50px;
   justify-content: center;
 }
 
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: $button-size;
-  height: $button-size;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-  // Default button styles (Red button for recording)
-  &.start-recording {
-    background-color: $button-color-start;
-    color: white;
-    font-size: 20px;
-
-    &:hover {
-      background-color: $button-hover-start;
-      transform: translateY(-4px);
-    }
-  }
-
-  // Stop button styles (Gray button for stopping)
-  &.stop-recording {
-    background-color: $button-color-stop;
-    color: white;
-    font-size: 20px;
-
-    &:hover {
-      background-color: $button-hover-stop;
-      transform: translateY(-4px);
-    }
-  }
-
-  &.refresh-transcript{
-    background-color: $button-color-refresh;
-    color:white;
-    font-size: 20px;
-    &:hover{
-      background-color: $button-hover-refresh;
-      transform: translate(-1px);
-    }
-  }
-
-  // Add some animation for the icon inside the button
-  svg {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.2s ease;
-
-    // Add a rotate effect on hover
-    &:hover {
-      transform: rotate(5deg);
-    }
-  }
-
-  // Optional: Active state for when recording is happening
-  &.active {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
-  }
-}
-
-// Audio controls styling
-audio {
-  margin-top: 10px;
-  width: 100%;
-  background-color: #f9fafb;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-p {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 5px;
-  padding: 5px;
-}
