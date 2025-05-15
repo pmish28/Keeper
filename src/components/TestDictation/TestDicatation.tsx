@@ -87,9 +87,9 @@ const Dictaphone = () => {
       <button className="refresh-transcript" onClick={handleReset}><Refresh /></button>
       <button style={{ fontSize: '1.5rem' }} onClick={handleCopyClick}>📋</button>
       {isCopied && <span className='copied'>Copied!</span>}
-      <textarea onChange={handleTranscriptChange} value= {text} className="transcript"></textarea>
-      {/* <p className="transcript">{transcript}</p> */}
-      <p>interimTranscript: {interimTranscript}</p>
+      {/* <textarea onChange={handleTranscriptChange} value= {text} className="transcript"></textarea> */}
+      <p className="transcript">{transcript}</p>
+      {/* <p>interimTranscript: {interimTranscript}</p> */}
     </div>
   );
 };
