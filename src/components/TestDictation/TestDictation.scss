@@ -1,119 +1,161 @@
 @use "../../styles/variables";
 
 
-.dictation{
-    display: flex;
-    flex-wrap: wrap;
-    gap:16px;
+.dictation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .transcript {
-    flex: 1 1 100%;
-    background: white;
-    border-radius: 7px;
-    box-shadow: variables.$box-shadow-dark;
-    font-size: 14px;
-    color: #6b7280;
-    padding: 1rem;
-    width: 500px;
-    height: 250px;
-    overflow-y: auto;    
+  flex: 1 1 100%;
+  background: white;
+  border-radius: 7px;
+  box-shadow: variables.$box-shadow-dark;
+  font-size: 14px;
+  color: #6b7280;
+  padding: 1rem;
+  width: 500px;
+  height: 250px;
+  overflow-y: auto;
+}
+
+
+
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: variables.$button-size;
+  height: variables.$button-size;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  // Default button styles (Red button for recording)
+  &.start-recording {
+    //   flex: 1 1 30%;
+    background-color: variables.$button-color-start;
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+      background-color: variables.$button-hover-start;
+      transform: translateY(-4px);
+    }
   }
 
-  
-
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: variables.$button-size;
-    height: variables.$button-size;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  
-    // Default button styles (Red button for recording)
-    &.start-recording {
+  // Stop button styles (Gray button for stopping)
+  &.stop-recording {
     //   flex: 1 1 30%;
-      background-color: variables.$button-color-start;
-      color: white;
-      font-size: 20px;
-  
-      &:hover {
-        background-color: variables.$button-hover-start;
-        transform: translateY(-4px);
-      }
-    }
-  
-    // Stop button styles (Gray button for stopping)
-    &.stop-recording {
-    //   flex: 1 1 30%;
-      background-color: variables.$button-color-stop;
-      color: white;
-      font-size: 20px;
-  
-      &:hover {
-        background-color: variables.$button-hover-stop;
-        transform: translateY(-4px);
-      }
-    }
-  
-    &.refresh-transcript{
-      background-color: variables.$button-color-refresh;
-      color:white;
-      font-size: 20px;
-      &:hover{
-        background-color: variables.$button-hover-refresh;
-        transform: translate(-1px);
-      }
-    }
-  
-    // Add some animation for the icon inside the button
-    svg {
-      width: 24px;
-      height: 24px;
-      transition: transform 0.2s ease;
-  
-      // Add a rotate effect on hover
-      &:hover {
-        transform: rotate(5deg);
-      }
-    }
-  
-    // Optional: Active state for when recording is happening
-    &.active {
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transform: scale(1.1);
+    background-color: variables.$button-color-stop;
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+      background-color: variables.$button-hover-stop;
+      transform: translateY(-4px);
     }
   }
-  
-  // Audio controls styling
-  audio {
-    margin-top: 10px;
+
+  &.refresh-transcript {
+    background-color: variables.$button-color-refresh;
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+      background-color: variables.$button-hover-refresh;
+      transform: translate(-1px);
+    }
+  }
+
+  // Add some animation for the icon inside the button
+  svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+
+    // Add a rotate effect on hover
+    &:hover {
+      transform: rotate(5deg);
+    }
+  }
+
+  // Optional: Active state for when recording is happening
+  &.active {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }
+}
+
+// Audio controls styling
+audio {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #f9fafb;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.copied {
+  position: 'absolute';
+  // top: '-20px';
+  // left: '50%';
+  transform: 'translateX(-50%)';
+  color: '#fff';
+  // padding: '4px 8px';
+  // border-radius: '4px';
+  font-size: '8px'
+}
+
+
+.select-language {
+
+  min-width: 250px;
+  position: relative;
+  display: inline-block;
+
+  select {
+    appearance: none;
     width: 100%;
-    background-color: #f9fafb;
-    border-radius: 5px;
-    padding: 5px;
-  }
-  
-  p {
-    font-size: 14px;
-    color: #6b7280;
-    margin-bottom: 5px;
-    padding: 5px;
+    font-size: 1.0rem;
+    margin: 8px;
+    padding: 0.6em 2.5em 0.6em 1em;
+    border: 1px solid #caced1;
+    border-radius: 0.3em;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #5b9df9;
+      box-shadow: 0 0 0 2px #cfe2ff;
+    }
   }
 
-  .copied{
-    position: 'absolute';
-    // top: '-20px';
-    // left: '50%';
-    transform: 'translateX(-50%)';
-    color: '#fff';
-    // padding: '4px 8px';
-    // border-radius: '4px';
-    font-size: '8px'
+  // Custom arrow using a pseudo-element
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #333;
+    transform: translateY(-50%);
   }
-  
+}
