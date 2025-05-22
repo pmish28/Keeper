@@ -5,56 +5,46 @@ import { Language, Refresh } from '@mui/icons-material';
 import "./TestDictation.scss"
 
 const Dictaphone = () => {
-  const {
-    transcript,
-    interimTranscript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+  const { finalTranscript, transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const [text, setText] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [text, setText] = useState('');
-  const finalTranscriptRef = useRef('');
-  // const [listeningActive,setListeningActive] = useState(false);
 
-
-  useEffect(()=>{
-    finalTranscriptRef.current =transcript;
-  },[transcript])
-
-  useEffect(()=>{
-    SpeechRecognition.onend = () =>{
-      const final = finalTranscriptRef.current;
-      if(final)
-      {
-        setText(prev =>(prev? prev+' ':''))
-        resetTranscript();
-        finalTranscriptRef.current ='';
-      }
-
-      if(isRecording){
-        SpeechRecognition.startListening({continuous:true,language:'en-US'});
-      }
-    }
-  },[isRecording, resetTranscript])
-
+ // Append only finalized speech, not the whole transcript
+ useEffect(() => {
+  if (finalTranscript !== '') {
+    setText((prev) => (prev ? prev + ' ' + finalTranscript : finalTranscript));
+    resetTranscript(); // Clear transcript so it doesn't append again
+  }
+}, [finalTranscript, resetTranscript]);
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return <span>Your browser doesn't support speech recognition.</span>;
   }
-  const handleStopRecording = () => {
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const startListening = () => {
+    SpeechRecognition.startListening({ continuous: true });
+    setIsRecording(true);
+
+  };
+
+  const stopListening = () => {
     SpeechRecognition.stopListening();
     setIsRecording(false);
-    // setListeningActive(false);
-  }
-  const handleStartRecording = () => {
-    SpeechRecognition.startListening({ continuous: true,language:'en-US' });
-    setIsRecording(true);
-    // setListeningActive(true);
-  }
+
+  };
+
+  const handleReset = () => {
+    resetTranscript();
+    setText('');
+  };
+
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(transcript)
+    navigator.clipboard.writeText(text)
       .then(() => {
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
@@ -62,35 +52,22 @@ const Dictaphone = () => {
       .catch(() => alert("Failed to copy."));
   } 
 
-  const handleTranscriptChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    // console.log("lastTranscript inside handleTranscriptChange:" + lastTranscript.current);
-    // console.log("transcript inside handleTranscriptChange:" + transcript);
-    setText(event.target.value);
-    // console.log("event target value "+ event.target.value);
-    }
-
-
-
-  const handleReset = ()=>{
-    resetTranscript();
-    setText('');
-    lastTranscript.current='';
-  }
-
   return (
     <div className='dictation'>
-      {!isRecording ?
-        <button className="start-recording" onClick={handleStartRecording}><Mic /></button>
-        :
-        <button className="stop-recording" onClick={handleStopRecording}><StopCircle /></button>
-      }
-      <button className="refresh-transcript" onClick={handleReset}><Refresh /></button>
-      <button style={{ fontSize: '1.5rem' }} onClick={handleCopyClick}>📋</button>
-      {isCopied && <span className='copied'>Copied!</span>}
-      {/* <textarea onChange={handleTranscriptChange} value= {text} className="transcript"></textarea> */}
-      <p className="transcript">{transcript}</p>
-      {/* <p>interimTranscript: {interimTranscript}</p> */}
-    </div>
+          {!isRecording ?
+            <button className="start-recording" onClick={startListening}><Mic /></button>
+            :
+            <button className="stop-recording" onClick={stopListening}><StopCircle /></button>
+          }
+          <button className="refresh-transcript" onClick={handleReset}><Refresh /></button>
+          <button style={{ fontSize: '1.5rem' }} onClick={handleCopyClick}>📋</button>
+          {isCopied && <span className='copied'>Copied!</span>}
+          <textarea onChange={handleChange} value= {text} className="transcript"></textarea>
+          {/* <p className="transcript">{transcript}</p> */}
+          {/* <p>interimTranscript: {interimTranscript}</p> */}
+    </div>  
   );
 };
+
+
 export default Dictaphone;
